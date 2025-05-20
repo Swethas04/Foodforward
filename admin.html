@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | FoodForward</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo1.png" alt="FoodForward Logo">
+                <h1>FoodForward</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="admin.html" class="active">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="admin-dashboard">
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+            <p><strong>Total Donations:</strong> <span id="total-donations">0</span></p>
+            <p><strong>Total Contact Messages:</strong> <span id="total-messages">0</span></p>
+
+            <!-- Donations Table -->
+            <div class="dashboard-section">
+                <h2>Donations</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Donor Name</th>
+                                <th>Food Type</th>
+                                <th>Quantity</th>
+                                <th>Location</th>
+                                <th>Contact</th>
+                                <th>Expiry Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donations-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Contact Messages Table -->
+            <div class="dashboard-section">
+                <h2>Contact Messages</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messages-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--
+    <section class="admin-dashboard">
+        <h2>Pending Registrations</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Location</th>
+                        <th>Proof</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="pending-registrations"></tbody>
+            </table>
+        </div>
+    </section>
+    
+    <script>
+        // Load Pending Registrations
+        async function loadPendingRegistrations() {
+            try {
+                const response = await fetch("http://localhost:5000/admin/pending-registrations");
+                const data = await response.json();
+                const tableBody = document.getElementById("pending-registrations");
+                tableBody.innerHTML = "";
+    
+                data.forEach(user => {
+                    const row = `<tr>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.phone}</td>
+                        <td>${user.location}</td>
+                        <td><a href="/uploads/${user.proof_file}" target="_blank">View Proof</a></td>
+                        <td>
+                            <button onclick="approveUser(${user.id})">Approve</button>
+                            <button onclick="rejectUser(${user.id})">Reject</button>
+                        </td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Error loading pending registrations:", error);
+            }
+        }
+    
+        // Approve User
+        async function approveUser(userId) {
+            await fetch(`/admin/approve-user/${userId}`, { method: "POST" });
+            alert("User approved!");
+            loadPendingRegistrations();
+        }
+    
+        // Reject User
+        async function rejectUser(userId) {
+            await fetch(`/admin/reject-user/${userId}`, { method: "POST" });
+            alert("User rejected!");
+            loadPendingRegistrations();
+        }
+    
+        loadPendingRegistrations();
+    </script>
+-->
+
+    <script>
+        // Fetch Dashboard Summary
+        async function loadDashboardSummary() {
+            try {
+                const response = await fetch("http://localhost:5000/admin/dashboard");
+                const data = await response.json();
+                document.getElementById("total-donations").innerText = data.total_donations;
+                document.getElementById("total-messages").innerText = data.total_messages;
+            } catch (error) {
+                console.error("Error loading dashboard summary:", error);
+            }
+        }
+
+        // Fetch Donations Data
+        async function loadDonations() {
+            try {
+                const response = await fetch("http://localhost:5000/admin/donations");
+                const data = await response.json();
+                const tableBody = document.getElementById("donations-table");
+                tableBody.innerHTML = "";
+
+                data.forEach(donation => {
+                    const row = `<tr>
+                        <td>${donation.donor_name}</td>
+                        <td>${donation.food_type}</td>
+                        <td>${donation.quantity}</td>
+                        <td>${donation.location}</td>
+                        <td>${donation.contact_info}</td>
+                        <td>${donation.expiry_time}</td>
+                        <td>
+                            <button onclick="deleteDonation(${donation.id})">Delete</button>
+                        </td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Error loading donations:", error);
+            }
+        }
+
+        // Fetch Contact Messages Data
+        async function loadMessages() {
+            try {
+                const response = await fetch("http://localhost:5000/admin/messages");
+                const data = await response.json();
+                const tableBody = document.getElementById("messages-table");
+                tableBody.innerHTML = "";
+
+                data.forEach(message => {
+                    const row = `<tr>
+                        <td>${message.name}</td>
+                        <td>${message.email}</td>
+                        <td>${message.phone}</td>
+                        <td>${message.message}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Error loading messages:", error);
+            }
+        }
+
+        // Delete Donation
+        async function deleteDonation(id) {
+            if (confirm("Are you sure you want to delete this donation?")) {
+                try {
+                    await fetch("/admin/donations/delete", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ id })
+                    });
+                    alert("Donation deleted successfully!");
+                    loadDonations();
+                } catch (error) {
+                    console.error("Error deleting donation:", error);
+                }
+            }
+        }
+
+        // Load Data on Page Load
+        loadDashboardSummary();
+        loadDonations();
+        loadMessages();
+    </script>
+</body>
+</html>

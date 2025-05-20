@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
+    <title>Receiver Registration Form</title>
+    <link rel="stylesheet" href="registration.css">
+    <style>
+        .error {
+            color: red;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+        <div class="logo">
+            <img src="logo1.png" alt="FoodForward Logo">
+            <h1>FoodForward</h1>
+        </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="donate.html">Donate</a></li>
+                <li><a href="#" onclick="checkLogin()">Search</a></li>
+                <!--<li><a href="search.html">Search</a></li>-->
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Register to Search food</h2><br>
+        <form id="registrationForm" action="/register" method="post" onsubmit="return validateForm()">
+            <div class="input-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                <span class="error" id="nameError"></span>
+            </div>
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                <span class="error" id="emailError"></span>
+            </div>
+            <div class="input-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                <span class="error" id="phoneError"></span>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Create a password">
+                <span class="error" id="passwordError"></span>
+            </div>
+            <div class="input-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password">
+                <span class="error" id="confirmPasswordError"></span>
+            </div>
+            <div class="input-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required placeholder="Enter your location">
+            </div>
+            
+            <div class="input-group">
+                <label for="proof">Upload Proof (ID, NGO Certificate, etc.)</label>
+                <input type="file" id="proof" name="proof" accept=".jpg,.png,.pdf" required>
+            </div>-
+            
+            <div class="input-group">
+                <button type="submit" class="submit-btn">Register</button>
+            </div>
+            <p class="login-link" style="font-size: 20px;">Already have an account? <a href="receiver login.html">Login</a></p>
+
+        </form>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 FoodForward. All Rights Reserved.</p>
+            <p>Designed to Feed Needy, Fight Waste.</p>
+        </div>
+    </footer>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            // Get input values
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let phone = document.getElementById("phone").value.trim();
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm-password").value;
+
+            // Reset error messages
+            document.getElementById("nameError").innerText = "";
+            document.getElementById("emailError").innerText = "";
+            document.getElementById("phoneError").innerText = "";
+            document.getElementById("passwordError").innerText = "";
+            document.getElementById("confirmPasswordError").innerText = "";
+
+            // Validate Name
+            if (name === "") {
+                document.getElementById("nameError").innerText = "Full Name is required.";
+                isValid = false;
+            }
+
+            // Validate Email
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailError").innerText = "Enter a valid email address.";
+                isValid = false;
+            }
+
+            // Validate Phone Number (Must be exactly 10 digits)
+            let phonePattern = /^[0-9]{10}$/;
+            if (!phonePattern.test(phone)) {
+                document.getElementById("phoneError").innerText = "Enter a valid 10-digit phone number.";
+                isValid = false;
+            }
+
+            // Validate Password (Minimum 6 characters)
+            if (password.length < 6) {
+                document.getElementById("passwordError").innerText = "Password must be at least 6 characters.";
+                isValid = false;
+            }
+
+            // Validate Confirm Password (Must match Password)
+            if (confirmPassword !== password) {
+                document.getElementById("confirmPasswordError").innerText = "Passwords do not match.";
+                isValid = false;
+            }
+
+            return isValid; // Prevents form submission if validation fails
+        }
+
+        document.getElementById("registrationForm").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent page reload
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            const response = await fetch("http://localhost:5000/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, phone, password })
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                alert("Registration successful!");
+                window.location.href = "search.html";
+            } else {
+                alert(data.message || "Registration failed!");
+            }
+        });
+    </script>
+
+</body>
+</html>

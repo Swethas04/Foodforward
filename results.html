@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
+    <link rel="stylesheet" href="results.css">
+    <title>Search Results | FoodForward</title>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="logo1.png" alt="FoodForward Logo">
+            <h1>FoodForward</h1>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="donate.html">Donate</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 style="color: black; text-align: center;">Search Results</h2>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        async function fetchResults() {
+            const params = new URLSearchParams(window.location.search);
+            const location = params.get("location");
+
+            if (!location) {
+                document.getElementById("results").innerHTML = "<p>No location provided.</p>";
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/search?location=${encodeURIComponent(location)}`);
+                const data = await response.json();
+
+                if (data.length > 0) {
+                    document.getElementById("results").innerHTML = data.map(item =>
+                        `<div class="result-box">
+                            <h3>${item.food_type}</h3>
+                            <p><strong>Quantity:</strong> ${item.quantity}</p>
+                            <p><strong>Location:</strong> ${item.location}</p>
+                            <p><strong>Contact:</strong> ${item.contact_info}</p>
+                            <p><strong>Expiry:</strong> ${new Date(item.expiry_time).toLocaleString()}</p>
+                            <button class="get-btn" onclick="collectFood(${item.id})">Get Food</button>
+                        </div>`
+                    ).join("");
+                } else {
+                    document.getElementById("results").innerHTML = "<p>No food available in this location.</p>";
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("results").innerHTML = "<p>Something went wrong. Please try again.</p>";
+            }
+        }
+
+        async function collectFood(foodId) {
+            const donationNumber = prompt("Enter the Donation Number:");
+
+            if (!donationNumber) {
+                alert("Donation number is required to collect food.");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:5000/api/collect-food", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id: foodId, donationNumber })
+                });
+
+                const result = await response.json();
+                alert(result.message);
+                
+                if (response.ok) {
+                    fetchResults(); // Refresh results after successful collection
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Failed to collect food. Please try again.");
+            }
+        }
+
+
+        fetchResults();
+    </script>
+
+</body>
+</html>

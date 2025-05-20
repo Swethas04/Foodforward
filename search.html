@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
+    <title>Search Food | FoodForward</title>
+    <link rel="stylesheet" href="search.css">
+    <script>
+        async function logout() {
+    const response = await fetch("http://localhost:5000/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        alert(data.message);
+        window.location.href = "receiver login.html"; // Redirect to login
+    } else {
+        alert("Logout failed!");
+    }
+}
+
+    </script>
+        
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="logo1.png" alt="FoodForward Logo">
+            <h1>FoodForward</h1>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <!--<li><a href="donate.html">Donate</a></li>-->
+            <li><a href="search.html" class="active">Search</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><button onclick="logout()">Logout</button>
+            </li>
+        </ul>
+    </nav>
+
+    <!--<div class="container">
+        <h2>Find Available Food</h2>
+        <p>Enter your location to find donated food nearby.</p>
+
+        <input type="text" id="searchLocation" placeholder="Enter your location">
+        
+    </div>-->
+
+    <div class="search-container">
+        <div class="search-box">
+            <h2>Find Available Food</h2>
+            <p>Enter your location to find donated food nearby.</p>
+            <input type="text" id="searchLocation" placeholder="Enter your location">
+            <button id="searchBtn">Search</button>
+            <div id="results"></div>
+        </div>
+    </div>
+    <div class="results-box" id="results">
+        <!-- Food items will be inserted here dynamically -->
+    </div>
+
+    <div class="gallery" id="foodGallery">
+        <!-- Food images will be inserted here dynamically -->
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 FoodForward. All Rights Reserved.</p>
+            <p>Designed to Feed Needy, Fight Waste.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

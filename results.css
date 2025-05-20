@@ -1,0 +1,201 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    /*background: linear-gradient(to right, #ff9966, #ff5e62), url("background.png");*/
+    background: #F2E3DB;
+    color: #fdfbfb;
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-x;
+    background-blend-mode: overlay;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*background: rgba(0, 0, 0, 0.8);*/
+    padding: 10px 20px;
+    
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: rgb(255, 102, 0);
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+}
+
+nav .logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ff5100;
+}
+
+/*
+#results {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+    margin-top: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.result-box {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.result-box h3 {
+    font-size: 18px;
+    color: #333;
+    width: 20%; 
+}
+
+.result-box p {
+    font-size: 14px;
+    color: #555;
+    width: 20%;
+    text-align: center;
+}
+
+
+.result-box .get-btn {
+    width: 15%;
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    border: none;
+}
+
+.result-box .get-btn:hover {
+    background: linear-gradient(45deg, #218838, #1e7e34);
+    transform: scale(1.05);
+}
+
+/* Make it responsive 
+@media (max-width: 768px) {
+    .result-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .result-box h3, .result-box p, .result-box .get-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}*/
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #results {
+        grid-template-columns: 1fr; /* Single column on small screens */
+    }
+}
+
+/* Style for the results container */
+#results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    color:#000;
+}
+
+/* Style for individual result boxes */
+.result-box {
+    background: white;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.result-box:hover {
+    transform: scale(1.05);
+}
+
+/* Food title */
+.result-box h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Food details */
+.result-box p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+}
+
+/* "Get Food" button */
+.get-btn {
+    background: #ffbb00;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.get-btn:hover {
+    background: #ffa500;
+}

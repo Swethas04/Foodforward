@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
+    <title>Donate Food | FoodForward</title>
+    <link rel="stylesheet" href="donate.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="logo1.png" alt="FoodForward Logo">
+            <h1>FoodForward</h1>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="donate.html" class="active">Donate</a></li>
+            <!--<li><a href="search.html">Search</a></li>-->
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+    <div class="background">
+    <div class="container">
+        <h2 style="color: rgb(235, 229, 229);">Donate Food</h2>
+        <p>Help someone in need by donating excess food.</p>
+
+        <form id="donationForm">
+            <label for="donorname">Donor Name:</label>
+            <input type="text" id="donorname" name="donorname" placeholder="Enter your Name.." required>
+
+            <label for="foodType">Food Type:</label>
+            <input type="text" id="foodType" name="foodType" placeholder="E.g., Rice, Vegetables" required>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" placeholder="E.g., 5 servings" required>
+
+            <label for="location">Pickup Location:</label>
+            <input type="text" id="location" name="location" placeholder="E.g., Chennai" required>
+
+            <label for="contact">Contact Number:</label>
+            <input type="tel" id="contact" name="contact" placeholder="E.g., 9876543210" required>
+
+            <label for="expiry">Food Expiry Time:</label>
+            <input type="datetime-local" id="expiry" name="expiry" required>
+
+            <button type="submit" class="donate-btn">Donate Now</button>
+        </form>
+    </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 FoodForward. All Rights Reserved.</p>
+            <p>Designed to Feed Needy, Fight Waste.</p>
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

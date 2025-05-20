@@ -1,0 +1,132 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Floating Chat Icon */
+.chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #56a3cc;
+    color: rgb(249, 250, 249);
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Chatbot Container */
+.chatbot-container {
+    width: 320px;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: rgb(222, 103, 66);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Chat Header */
+.chat-header {
+    background: #f74d27;
+    color: rgb(0, 0, 0);
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Chat Box */
+.chat-box {
+    height: 350px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #e6e5ea;
+}
+
+/* Chat Messages */
+.bot-message, .user-message {
+    max-width: 75%;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.bot-message {
+    background: #deac94;
+    color:#0a0007;
+    align-self: flex-start;
+}
+
+.user-message {
+    background: #e6857a;
+    color: rgb(0, 0, 0);
+    align-self: flex-end;
+    text-align: right;
+}
+
+/* Suggested Question Buttons */
+.suggested-question {
+    display: inline-block;
+    background: #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 15px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+}
+
+.suggested-question:hover {
+    background: #dcdcdc;
+}
+
+/* Chat Input */
+.chat-input {
+    display: flex;
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #0a0007;
+    border-radius: 5px;
+    outline: none;
+}
+
+.chat-input button {
+    background: #deac94;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 8px 12px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .chatbot-container {
+        width: 90%;
+        right: 5%;
+    }
+}
+

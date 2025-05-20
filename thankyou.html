@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
+    <title>Thank You | Food Forward</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
+        h2 { color: green; }
+        .donation-number { font-size: 20px; font-weight: bold; color: blue; }
+        a { display: inline-block; margin-top: 20px; text-decoration: none; background: green; color: white; padding: 10px 20px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Thank You for Your Donation!</h2>
+    <p>Your donation number is: <strong id="donationNumber"></strong></p>
+    <p>Please share this number with the receiver so they can claim the food.</p>
+    <a href="index.html">Go Back To Home</a>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const donationNumber = params.get("donationNumber");
+
+        if (donationNumber) {
+            document.getElementById("donationNumber").innerText = donationNumber;
+        } else {
+            document.getElementById("donationNumber").innerText = "Error: No donation number found.";
+        }
+    </script>
+</body>
+</html>

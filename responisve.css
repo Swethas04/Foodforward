@@ -1,0 +1,42 @@
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 10px;
+    }
+
+    .about .container {
+        padding: 20px;
+    }
+
+    .about-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .about-logo img {
+        width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about .container {
+        padding: 15px;
+    }
+
+    .about-logo img {
+        width: 100px;
+    }
+
+    .btn.primary {
+        width: 100%;
+    }
+}

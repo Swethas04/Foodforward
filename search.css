@@ -1,0 +1,380 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    /*background: linear-gradient(to right, #ff9966, #ff5e62), url("background.png");*/
+    background: #F2E3DB;
+    color: #fdfbfb;
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-x;
+    background-blend-mode: overlay;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*background: rgba(0, 0, 0, 0.8);*/
+    padding: 10px 20px;
+    
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: rgb(255, 102, 0);
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+}
+
+nav .logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ff5100;
+}
+
+/* Search Container */
+.container {
+    margin-top: 100px;
+    text-align: center;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    max-width: 500px;
+    width: 90%;
+}
+
+.container h2 {
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.container p {
+    font-size: 16px;
+    color: #050101;
+    margin-bottom: 20px;
+}
+
+/* Search Input */
+#searchLocation {
+    width: 100%;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Search Button */
+.search-btn {
+    width: 100%;
+    background: linear-gradient(45deg, #ff9800, #fbbc05);
+    border: none;
+    padding: 12px;
+    font-size: 18px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.search-btn:hover {
+    background: linear-gradient(45deg, #f57c00, #ff9800);
+    transform: scale(1.05);
+}
+
+/* Search Results 
+#results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; 
+    margin-top: 20px;
+}
+
+.result-box {
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    padding: 15px;
+    border-radius: 10px;
+    width: 300px; 
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.result-box:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover 
+}
+/*
+#results {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    border-radius: 10px;
+    font-size: 16px;
+    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3);
+}*/
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+}
+
+
+/* Make the gallery a background */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1; /* Send images to the background */
+}
+
+.gallery img {
+    width: 200px; /* Adjust size as needed */
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Centered search box */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full screen height */
+    position: relative;
+}
+
+.search-box {
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent */
+    backdrop-filter: blur(10px); /* Blur effect */
+    padding: 60px;
+    border-radius: 15px;
+    text-align: center;
+    width: 500px;
+}
+
+.search-box:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.search-box h2 {
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+}
+
+.search-box p {
+    font-size: 24px;
+    color: rgb(0, 0, 0);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 30px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+
+.search-box button {
+    width: 100%;
+    padding: 20px;
+    margin-top: 10px;
+    border: none;
+    background: #ffcc00;
+    color: black;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+.search-box button:hover {
+    background: linear-gradient(45deg, #f57c00, #ff9800);
+    transform: scale(1.05);
+}
+
+.footer {
+    background: #263A29;
+    color: #F2E3DB;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Style for Search Results 
+#results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}*/
+
+/* Individual result box (product-style) 
+.result-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.result-box:hover {
+    transform: scale(1.05);
+}
+
+.result-box h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.result-box p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+*/
+/* Button for more details 
+.result-box button {
+    background: #ffcc00;
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.result-box button:hover {
+    background: #ffaa00;
+}
+*/
+/* Food Items Grid 
+#results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: center;
+    padding: 20px;
+}*/
+
+/* Individual Food Item Card 
+.result-box {
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.result-box:hover {
+    transform: scale(1.05); 
+}*/
+
+/* Food Item Details 
+.result-box h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.result-box p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}*/
+
+/* "Get" Button 
+.get-btn {
+    display: inline-block;
+    width: 100%;
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+    border: none;
+}
+
+.get-btn:hover {
+    background: linear-gradient(45deg, #218838, #1e7e34);
+    transform: scale(1.05);
+}*/
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #results {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+

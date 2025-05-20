@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
+    <title>Contact Us | Food Forward</title>
+    <link rel="stylesheet" href="contact.css">
+    
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo1.png" alt="FoodForward Logo">
+                <h1>FoodForward</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="donate.html">Donate</a></li>
+               <!-- <li><a href="search.html">Search</a></li>-->
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="contact">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>Have questions or want to collaborate?</p>
+
+            <form id="contactForm">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email">
+                <input type="number" name="phone" placeholder="Your Mobile Number" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit" class="btn primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 FoodForward. All Rights Reserved.</p>
+            <p>Designed to Feed Needy, Fight Waste.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+        
+            const formData = {
+                name: this.name.value,
+                email: this.email.value,
+                phone: this.phone.value,
+                message: this.message.value
+            };
+        
+            try {
+                const response = await fetch("http://localhost:5000/api/contact", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
+        
+                const result = await response.json();
+                alert(result.message);
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                alert("Something went wrong. Please try again.");
+            }
+        });
+        </script>
+
+</body>
+</html>

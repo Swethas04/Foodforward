@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
+    <title>Receiver Login Form</title>
+    <link rel="stylesheet" href="receiver.css">
+</head>
+<body>
+    <header>
+        <nav>
+        <div class="logo">
+            <img src="logo1.png" alt="FoodForward Logo">
+            <h1>FoodForward</h1>
+        </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="donate.html">Donate</a></li>
+                <li><a href="#" onclick="checkLogin()">Search</a></li>
+                <!--<li><a href="search.html">Search</a></li>-->
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Login To Search Food</h2><br>
+        <form action="/login" method="post" id="loginForm">
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email address"><br>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password"><br>
+            </div>
+            <div class="input-group">
+                <button type="submit" class="submit-btn">Login</button><br>
+            </div>
+            <p class="signup-link" style="font-size: 20px;">Don't have an account? <a href="registration form.html">Sign Up</a></p>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 FoodForward. All Rights Reserved.</p>
+            <p>Designed to Feed Needy, Fight Waste.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector("form").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const response = await fetch("http://localhost:5000/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Login successful!");
+                window.location.href = data.redirect; // Redirect to search page
+            } else {
+                alert(data.message || "Login failed!");
+            }
+        });
+    </script>
+
+        
+</body>
+</html>

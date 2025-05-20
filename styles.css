@@ -1,0 +1,264 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #F2E3DB;
+    color: #fdfbfb;
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-x;
+    background-blend-mode: overlay;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*background: rgba(0, 0, 0, 0.8);*/
+    padding: 10px 20px;
+    
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff6600;
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+}
+
+nav .logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ff5100;
+}
+
+.homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    text-align: center;
+    gap: 40px; /* Adds space between sections */
+}
+
+.left-side {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+}
+
+.sdg-goals {
+    text-align: center;
+    background:  rgba(209, 86, 10, 0.782);;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.sdg-goals h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    background: #F2E3DB;
+}
+
+.sdg-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between images */
+    padding: 20px;
+    flex-wrap: wrap; /* Ensures responsiveness */
+}
+
+.sdg-container img {
+    width: 150px;  /* Adjust the size */
+    height: 150px;
+    object-fit: cover; /* Ensures images don't stretch */
+    border-radius: 10px;
+    box-shadow: 2px 4px 8px  rgb(0, 0, 0, 0.6);;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sdg-container img:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Food Video */
+.food-video {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 10px;
+}
+
+
+.food-video video {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.2);
+}
+
+.right-side {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-image: url('bg.jpeg');
+}
+
+.hero-content {
+    position: relative;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 50px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 600px;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    color: #ffcc00;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+.btn.primary {
+    background: #ffcc00;
+    color: #333;
+}
+
+.btn.secondary {
+    background: transparent;
+    border: 2px solid #ffcc00;
+    color: #ffcc00;
+    margin-left: 10px;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+
+/* About Styling */
+.about {
+    height: auto;
+    background: url('https://source.unsplash.com/1600x900/?charity,food') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.about .container1 {
+    max-width: 1000px;
+    background: rgba(65, 38, 18, 0.6);
+    padding: 40px;
+    border-radius: 10px;
+}
+.about-logo {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.about-logo img {
+    height: 150px; 
+    width: auto;
+}
+
+.about h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #ffcc00;
+
+}
+
+.about p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+/* Active link styling */
+nav ul li a.active {
+    color: hsl(26, 100%, 50%);
+    font-weight: bold;
+}
+
+/* Adjust button styles to fit About Page */
+.about .btn {
+    margin-top: 20px;
+}
+/* Footer */
+.footer {
+    background: #263A29;
+    color: #F2E3DB;
+    text-align: center;
+    padding: 20px;
+}
+
