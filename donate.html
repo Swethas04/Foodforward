@@ -18,6 +18,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="donate.html" class="active">Donate</a></li>
             <!--<li><a href="search.html">Search</a></li>-->
+            <li><a href="reviews.html">Reviews</a></li>
             <li><a href="contact.html">Contact Us</a></li>
         </ul>
     </nav>
@@ -30,8 +31,30 @@
             <label for="donorname">Donor Name:</label>
             <input type="text" id="donorname" name="donorname" placeholder="Enter your Name.." required>
 
-            <label for="foodType">Food Type:</label>
-            <input type="text" id="foodType" name="foodType" placeholder="E.g., Rice, Vegetables" required>
+            <label for="foodCategory">Food Category:</label>
+            <select id="foodCategory" name="foodCategory" required>
+                <option value="" disabled selected>Select a category</option>
+            </select>
+
+            <label for="foodType">Food Description:</label>
+            <input type="text" id="foodType" name="foodType" placeholder="E.g., Vegetable biryani, 5 lunch boxes" required>
+
+            <label for="foodImage">Food photo <span class="label-note">(optional, max 5MB)</span></label>
+            <input type="file" id="foodImage" name="foodImage" accept="image/jpeg,image/png,image/gif,image/webp">
+            <div id="imagePreview" class="image-preview" hidden>
+                <img id="previewImg" src="" alt="Food preview">
+                <button type="button" id="clearImage" class="clear-image-btn">Remove photo</button>
+            </div>
+
+            <label>Dietary information <span class="label-note">(select all that apply)</span></label>
+            <div id="dietaryOptions" class="checkbox-group"></div>
+
+            <label>Allergen information <span class="label-note">(select any allergens present)</span></label>
+            <div id="allergenOptions" class="checkbox-group"></div>
+            <label class="checkbox-item none-allergen">
+                <input type="checkbox" id="noAllergens" name="noAllergens" value="1">
+                <span>No major allergens / not sure</span>
+            </label>
 
             <label for="quantity">Quantity:</label>
             <input type="number" id="quantity" name="quantity" placeholder="E.g., 5 servings" required>
@@ -58,6 +81,8 @@
     </footer>
 
 
+    <script src="api-config.js"></script>
+    <script src="food-meta.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

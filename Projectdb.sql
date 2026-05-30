@@ -44,6 +44,9 @@ DROP TABLE IF EXISTS `donors`;
 CREATE TABLE `donors` (
   `id` int NOT NULL AUTO_INCREMENT,
   `food_type` varchar(255) NOT NULL,
+  `food_category` varchar(100) DEFAULT NULL,
+  `dietary_info` varchar(500) DEFAULT NULL,
+  `allergen_info` varchar(500) DEFAULT NULL,
   `quantity` int NOT NULL,
   `location` varchar(255) DEFAULT NULL,
   `contact_info` varchar(255) DEFAULT NULL,

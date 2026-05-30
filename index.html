@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="responisve.css">
     <link rel="stylesheet" href="chatbot.css">
+    <script src="api-config.js"></script>
     <script src="script.js" defer></script>
     <style>
         .sdg-container {
@@ -87,6 +88,7 @@
                 <li><a href="donate.html">Donate</a></li>
                 <li><a href="#" onclick="checkLogin()">Search</a></li>
                 <!--<li><a href="search.html">Search</a></li>-->
+                <li><a href="reviews.html">Reviews</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -235,7 +237,7 @@
                 return "Food donations from FoodForward are available for NGOs, charities, shelters, orphanages, and individuals who are facing food insecurity. If you need food assistance, please register on our website.";
             }
             if (input.includes("what types of food can be donated")) {
-                return "You can donate fresh fruits, vegetables, packaged goods, canned food, dairy, bread, and cooked meals. However, expired, spoiled, or unsafe food items cannot be accepted to ensure food safety.";
+                return "You can donate food in categories such as prepared meals, baked goods, fruits and vegetables, dairy, grains, canned goods, beverages, and snacks. When donating, please select the food category, note any dietary labels (vegetarian, vegan, halal, etc.), and declare allergens so receivers can choose safely. Expired, spoiled, or unsafe food cannot be accepted.";
             }
             if (input.includes("how does foodforward ensure food safety")) {
                 return "Food safety is our top priority. We follow strict guidelines for food collection, storage, and distribution. We also partner with certified food handlers and NGOs to ensure donated food is fresh and safe to eat.";

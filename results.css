@@ -160,6 +160,29 @@ nav ul li a:hover {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.result-box .food-photo {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.result-box .food-photo-placeholder {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    color: #888;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 14px;
 }
 
 .result-box:hover {
@@ -198,4 +221,73 @@ nav ul li a:hover {
 
 .get-btn:hover {
     background: #ffa500;
+}
+
+.food-meta {
+    margin: 10px 0;
+    text-align: left;
+}
+
+.badge {
+    display: inline-block;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin: 3px 4px 3px 0;
+    font-weight: 500;
+}
+
+.badge-category {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.badge-diet {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.allergen-warning {
+    font-size: 14px;
+    color: #c62828;
+    margin-top: 8px;
+}
+
+.allergen-safe {
+    font-size: 13px;
+    color: #558b2f;
+    margin-top: 8px;
+}
+
+.donor-line {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+.donor-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 12px;
+    font-size: 14px;
+}
+
+.donor-rating.none {
+    color: #999;
+    font-size: 13px;
+}
+
+.star-display .star {
+    color: #ddd;
+}
+
+.star-display .star.filled {
+    color: #ffb300;
+}
+
+.rating-text {
+    color: #555;
 }

@@ -18,6 +18,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="donate.html">Donate</a></li>
             <li><a href="search.html">Search</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
             <li><a href="contact.html">Contact Us</a></li>
         </ul>
     </nav>
@@ -27,6 +28,9 @@
         <div id="results"></div>
     </div>
 
+    <script src="api-config.js"></script>
+    <script src="food-meta.js"></script>
+    <script src="reviews.js"></script>
     <script>
         async function fetchResults() {
             const params = new URLSearchParams(window.location.search);
@@ -37,21 +41,45 @@
                 return;
             }
 
+            const apiParams = new URLSearchParams({ location });
+            ["category", "dietary", "excludeAllergens"].forEach((key) => {
+                const value = params.get(key);
+                if (value) apiParams.set(key, value);
+            });
+
             try {
-                const response = await fetch(`http://localhost:5000/api/search?location=${encodeURIComponent(location)}`);
+                const response = await fetch(apiUrl(`/api/search?${apiParams.toString()}`));
                 const data = await response.json();
 
+                if (data.message) {
+                    document.getElementById("results").innerHTML = "<p>No food available matching your search.</p>";
+                    return;
+                }
+
                 if (data.length > 0) {
-                    document.getElementById("results").innerHTML = data.map(item =>
-                        `<div class="result-box">
+                    document.getElementById("results").innerHTML = data.map(item => {
+                        const meta = renderFoodMetaBadges(
+                            item.food_category,
+                            item.dietary_info,
+                            item.allergen_info
+                        );
+                        const donorRating = renderDonorRatingBadge(
+                            item.donor_avg_rating,
+                            item.donor_review_count
+                        );
+                        return `<div class="result-box">
+                            ${renderFoodImage(item.food_image, item.food_type)}
                             <h3>${item.food_type}</h3>
+                            <p class="donor-line"><strong>Donor:</strong> ${escapeHtml(item.donor_name || "Anonymous")}</p>
+                            ${donorRating}
+                            <div class="food-meta">${meta}</div>
                             <p><strong>Quantity:</strong> ${item.quantity}</p>
                             <p><strong>Location:</strong> ${item.location}</p>
                             <p><strong>Contact:</strong> ${item.contact_info}</p>
                             <p><strong>Expiry:</strong> ${new Date(item.expiry_time).toLocaleString()}</p>
                             <button class="get-btn" onclick="collectFood(${item.id})">Get Food</button>
-                        </div>`
-                    ).join("");
+                        </div>`;
+                    }).join("");
                 } else {
                     document.getElementById("results").innerHTML = "<p>No food available in this location.</p>";
                 }
@@ -59,6 +87,12 @@
                 console.error("Error:", error);
                 document.getElementById("results").innerHTML = "<p>Something went wrong. Please try again.</p>";
             }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement("div");
+            div.textContent = text ?? "";
+            return div.innerHTML;
         }
 
         async function collectFood(foodId) {
@@ -70,17 +104,23 @@
             }
 
             try {
-                const response = await fetch("http://localhost:5000/api/collect-food", {
+                const response = await fetch(apiUrl("/api/collect-food"), {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ id: foodId, donationNumber })
                 });
 
                 const result = await response.json();
-                alert(result.message);
-                
+
                 if (response.ok) {
-                    fetchResults(); // Refresh results after successful collection
+                    const params = new URLSearchParams({
+                        donationNumber: result.donationNumber,
+                        donorName: result.donorName || "Donor",
+                        foodType: result.foodType || "Food donation"
+                    });
+                    window.location.href = `feedback.html?${params.toString()}`;
+                } else {
+                    alert(result.message);
                 }
             } catch (error) {
                 console.error("Error:", error);

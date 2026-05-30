@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
+    <title>Rate Your Experience | FoodForward</title>
+    <link rel="stylesheet" href="feedback.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="logo1.png" alt="FoodForward Logo">
+            <h1>FoodForward</h1>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+        </ul>
+    </nav>
+
+    <main class="feedback-page">
+        <div class="feedback-card">
+            <h2>How was your pickup?</h2>
+            <p class="subtitle">Share feedback about this donation to help other receivers and recognize generous donors.</p>
+
+            <div class="donation-summary" id="donationSummary"></div>
+
+            <form id="reviewForm">
+                <input type="hidden" id="donationNumber" name="donationNumber">
+                <input type="hidden" id="rating" name="rating" value="">
+
+                <label>Your rating <span class="required">*</span></label>
+                <div id="starInput" class="star-input-wrap"></div>
+                <p class="field-error" id="ratingError"></p>
+
+                <label for="reviewText">Your review</label>
+                <textarea id="reviewText" name="reviewText" rows="4" maxlength="1000"
+                    placeholder="Was the food as described? Was pickup easy? (optional)"></textarea>
+
+                <label for="receiverName">Your name</label>
+                <input type="text" id="receiverName" name="receiverName" placeholder="Optional — shown with your review">
+
+                <button type="submit" class="submit-btn">Submit feedback</button>
+                <a href="search.html" class="skip-link">Skip for now</a>
+            </form>
+        </div>
+    </main>
+
+    <script src="api-config.js"></script>
+    <script src="reviews.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const donationNumber = params.get("donationNumber");
+        const donorName = params.get("donorName") || "Donor";
+        const foodType = params.get("foodType") || "Food donation";
+
+        const summaryEl = document.getElementById("donationSummary");
+        const form = document.getElementById("reviewForm");
+
+        if (!donationNumber) {
+            summaryEl.innerHTML = "<p class='error-msg'>Missing donation details. Please collect food from search results first.</p>";
+            form.style.display = "none";
+        } else {
+            document.getElementById("donationNumber").value = donationNumber;
+            summaryEl.innerHTML = `
+                <p><strong>Donation #:</strong> ${donationNumber}</p>
+                <p><strong>Donor:</strong> ${escapeHtml(donorName)}</p>
+                <p><strong>Food:</strong> ${escapeHtml(foodType)}</p>
+            `;
+            renderStarInput("starInput", "rating");
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement("div");
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const ratingError = document.getElementById("ratingError");
+            ratingError.textContent = "";
+
+            const rating = parseInt(document.getElementById("rating").value, 10);
+            if (!rating || rating < 1 || rating > 5) {
+                ratingError.textContent = "Please select a star rating.";
+                return;
+            }
+
+            const payload = {
+                donationNumber,
+                rating,
+                reviewText: document.getElementById("reviewText").value.trim(),
+                receiverName: document.getElementById("receiverName").value.trim()
+            };
+
+            try {
+                const response = await fetch(apiUrl("/api/reviews"), {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify(payload)
+                });
+                let result = {};
+                try {
+                    result = await response.json();
+                } catch (_) {
+                    throw new Error("Server returned an invalid response. Is node server.js running on port 5000?");
+                }
+
+                if (response.ok) {
+                    window.location.href = "reviews.html?submitted=1";
+                } else {
+                    alert(result.message || "Could not submit review.");
+                }
+            } catch (err) {
+                console.error(err);
+                alert(err.message || "Failed to submit review. Start the API with: node server.js");
+            }
+        });
+    </script>
+</body>
+</html>

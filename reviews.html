@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
+    <title>Community Reviews | FoodForward</title>
+    <link rel="stylesheet" href="reviews-page.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="logo1.png" alt="FoodForward Logo">
+            <h1>FoodForward</h1>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="donate.html">Donate</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="reviews.html" class="active">Reviews</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="reviews-page">
+        <header class="reviews-header">
+            <h2>Community Reviews</h2>
+            <p>Feedback from receivers after successful food pickups</p>
+            <div id="successBanner" class="success-banner" hidden>Thank you! Your review has been published.</div>
+            <div id="statsSummary" class="stats-summary"></div>
+        </header>
+
+        <div id="reviewsList" class="reviews-list">
+            <p class="loading">Loading reviews...</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 FoodForward. All Rights Reserved.</p>
+    </footer>
+
+    <script src="api-config.js"></script>
+    <script src="reviews.js"></script>
+    <script>
+        if (new URLSearchParams(window.location.search).get("submitted") === "1") {
+            document.getElementById("successBanner").hidden = false;
+        }
+
+        async function loadReviews() {
+            const listEl = document.getElementById("reviewsList");
+            const statsEl = document.getElementById("statsSummary");
+
+            try {
+                const [reviewsRes, statsRes] = await Promise.all([
+                    fetch(apiUrl("/api/reviews")),
+                    fetch(apiUrl("/api/reviews/stats"))
+                ]);
+
+                const reviews = await reviewsRes.json();
+                const stats = await statsRes.json();
+
+                if (stats.totalReviews > 0) {
+                    statsEl.innerHTML = `
+                        ${renderStarDisplay(stats.averageRating)}
+                        <span><strong>${Number(stats.averageRating).toFixed(1)}</strong> average from ${stats.totalReviews} review${stats.totalReviews === 1 ? "" : "s"}</span>
+                    `;
+                }
+
+                if (!Array.isArray(reviews) || reviews.length === 0) {
+                    listEl.innerHTML = "<p class='empty'>No reviews yet. Be the first to share feedback after collecting food!</p>";
+                    return;
+                }
+
+                listEl.innerHTML = reviews.map((r) => `
+                    <article class="review-card">
+                        <div class="review-top">
+                            ${renderStarDisplay(r.rating)}
+                            <time>${formatReviewDate(r.created_at)}</time>
+                        </div>
+                        <h3>${escapeHtml(r.food_type || "Food donation")}</h3>
+                        <p class="review-meta">Donor: <strong>${escapeHtml(r.donor_name)}</strong> · Pickup #${escapeHtml(String(r.donation_number))}</p>
+                        ${r.review_text ? `<p class="review-body">${escapeHtml(r.review_text)}</p>` : "<p class='review-body muted'>No written review</p>"}
+                        <p class="reviewer">— ${escapeHtml(r.receiver_name)}</p>
+                    </article>
+                `).join("");
+            } catch (err) {
+                console.error(err);
+                listEl.innerHTML = "<p class='empty'>Could not load reviews. Please try again later.</p>";
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement("div");
+            div.textContent = text ?? "";
+            return div.innerHTML;
+        }
+
+        loadReviews();
+    </script>
+</body>
+</html>

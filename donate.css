@@ -68,57 +68,153 @@ nav ul li a:hover {
 .background {
     position: relative;
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
+    min-height: calc(100vh - 120px);
+    overflow: visible;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     background-size: cover;
     background-position: center;
     background-image: url('donatebg.png');
+    padding: 28px 16px 48px;
 }
+
 /* Donate Form */
 .container {
-    width: 50%;
+    width: min(560px, 94vw);
     max-width: 600px;
-    margin: 50px auto;
-    padding: 30px;
+    margin: 0 auto;
+    padding: 28px 30px 32px;
     background: rgba(14, 60, 2, 0.767);
     border-radius: 10px;
 }
 
 .container h2 {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-size: 40px;
+}
+
+.container > p {
+    text-align: center;
+    margin-bottom: 18px;
+    line-height: 1.4;
 }
 
 form label {
     display: block;
-    margin: 10px 0 5px;
+    margin: 14px 0 6px;
 }
 
-form input {
+form label:first-of-type {
+    margin-top: 0;
+}
+
+form input,
+form select {
     width: 100%;
-    padding: 10px;
+    padding: 10px 12px;
     border: none;
     border-radius: 5px;
+    margin-bottom: 4px;
+}
+
+.label-note {
+    font-size: 0.85em;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.field-hint {
+    font-size: 0.85em;
+    margin-bottom: 6px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.checkbox-group {
+    margin-bottom: 10px;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px 10px;
+    margin-bottom: 4px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9em;
+    cursor: pointer;
+    color: #f5f5f5;
+}
+
+.checkbox-item input {
+    width: auto;
+    margin: 0;
+}
+
+.none-allergen {
+    margin: 4px 0 14px;
 }
 
 .donate-btn {
     width: 100%;
     background: #ffb700;
     border: none;
-    padding: 10px;
+    padding: 12px;
     font-size: 18px;
     color: #333;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 18px;
 }
 
 .donate-btn:hover {
     background: #ff9800;
+}
+
+form input[type="file"] {
+    padding: 8px 0;
+    background: transparent;
+    color: #f5f5f5;
+    margin-bottom: 8px;
+}
+
+.image-preview {
+    margin: 10px 0 14px;
+    text-align: center;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.clear-image-btn {
+    display: block;
+    margin: 8px auto 0;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85em;
+}
+
+.clear-image-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+nav ul li a.active {
+    color: #ff5100;
+    font-weight: bold;
 }
 
 .footer {
@@ -126,4 +222,22 @@ form input {
     color: #F2E3DB;
     text-align: center;
     padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .background {
+        padding: 20px 12px 36px;
+    }
+
+    .container {
+        padding: 22px 20px 28px;
+    }
+
+    .container h2 {
+        font-size: 32px;
+    }
+
+    .checkbox-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
 }

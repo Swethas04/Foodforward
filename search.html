@@ -6,9 +6,10 @@
     <link rel="icon" type="image/png" href="logo1.png">
     <title>Search Food | FoodForward</title>
     <link rel="stylesheet" href="search.css">
+    <script src="api-config.js"></script>
     <script>
         async function logout() {
-    const response = await fetch("http://localhost:5000/logout", {
+    const response = await fetch(apiUrl("/logout"), {
         method: "POST",
         headers: { "Content-Type": "application/json" }
     });
@@ -37,6 +38,7 @@
             <li><a href="index.html">Home</a></li>
             <!--<li><a href="donate.html">Donate</a></li>-->
             <li><a href="search.html" class="active">Search</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
             <li><a href="contact.html">Contact Us</a></li>
             <li><button onclick="logout()">Logout</button>
             </li>
@@ -56,12 +58,18 @@
             <h2>Find Available Food</h2>
             <p>Enter your location to find donated food nearby.</p>
             <input type="text" id="searchLocation" placeholder="Enter your location">
+
+            <label for="filterCategory">Food category</label>
+            <select id="filterCategory"></select>
+
+            <label>Dietary needs <span class="label-note">(optional)</span></label>
+            <div id="filterDietary" class="checkbox-group"></div>
+
+            <label>Exclude allergens <span class="label-note">(optional)</span></label>
+            <div id="filterAllergens" class="checkbox-group"></div>
+
             <button id="searchBtn">Search</button>
-            <div id="results"></div>
         </div>
-    </div>
-    <div class="results-box" id="results">
-        <!-- Food items will be inserted here dynamically -->
     </div>
 
     <div class="gallery" id="foodGallery">
@@ -75,6 +83,7 @@
         </div>
     </footer>
 
+    <script src="food-meta.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
